@@ -1,27 +1,136 @@
-<html lang="jp">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="css/css.css" type="text/css" media="screen" />
-        <script type="text/javascript" src="js/index.js" />
-        <title>Insert title here</title>
-    </head>
-    <body>
-        <div id="container-inner">
-            <div id="contents">
-                <!-- コンテンツここから -->
-                <div class="container-fluid">
-                    <table>
-                        <thead>
-                            <th>No</th>
-                            <th>data</th>
-                        </thead>
-                        <tr th:each="d : ${msg}">
-                            <td><span th:text="${d.no}">1</span></td>
-                            <td><span th:text="${d.message}">本日は晴天なり。</span></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"></meta>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+  <title>Concierge</title>
+  <link rel="stylesheet" type="text/css" href="../development/css/style.css"></link>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,500,600,700,800,900' rel='stylesheet' type='text/css'></link>
+  <link rel="stylesheet" type="text/css" href="../development/css/bootstrap.min.css"></link>
+  <link rel="stylesheet" type="text/css" href="../development/css/custom.css"></link>
+</head>
+<body onload="initialize()">
+  <header>
+    <div class="container">
+
+      <!-- TEXT ROW -->
+      <div class="row">
+        <div class="col-lg-12 col-sm-11">
+          <h1>Concierge</h1>
+          <h2>noblesse oblige</h2>
         </div>
-    </body>
+      </div>
+
+      <!-- IPHONE ROW  -->
+      <div class="row">
+        <div class="col-lg-10 col-lg-12">
+          <div class="col-md-4 col-sm-3 col-xs-3">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <h3 class="conceal">home</h3>
+          </div>
+
+          <div class="col-lg-4 col-sm-3 col-xs-3">
+            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+            <h3 class="conceal">toilet_navi</h3>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section>
+    <div id="home-sheet" class="container">
+      <!-- 3 BOXES ROW  -->
+      <div class="row">
+
+        <div class="col-lg-3 col-md-4 col-sm-2">
+          <span class="glyphicon glyphicon-download-alt"></span>
+          <h3>Download</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-2">
+          <span class="glyphicon glyphicon-bullhorn"></span>
+          <h3>Advertise</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        </div>
+
+        <aside class="col-lg-3 col-md-4 col-sm-2">
+          <h3>Offset</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+          <img src="images/home_icon.png" alt="home"/>
+        </aside>
+
+      </div>
+
+    </div>
+    <div id="toiletNavi-sheet" class="container">
+      <div class="row-fluid">
+      	<div id="map_canvas" style="width:100%; height:400px"></div>
+   	  </div>
+    </div>
+  </section>
+
+  <section class="call-to-action">
+    <div class="container">
+      <!-- CALL TO ACTION ROW  -->
+      <div class="row">
+        <div class="col-lg-12 col-md-11">
+          <h2> You want to learn how to use Bootstrap? </h2>
+
+          <button type="button" class="btn btn-default center">Back to the Article</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="center">© 2015 <a href="http://www.designmodo.com" target="_blank">designmodo</a>. Bootstrap - Grid System</p>
+  </footer>
+<!--
+  <div class="example-toolbar">
+    <div id="btn-home" class="goog-toolbar-button goog-toolbar-button-inner-box">
+      <div class="home-icon">home</div>
+    </div>
+    <div id="btn-toiletNavi" class="goog-toolbar-button goog-toolbar-button-inner-box">
+      <div class="toilet-icon">toiletNavigate</div>
+    </div>
+  </div>
+-->
+    <!--<div id="btn-home" class="goog-toolbar-button goog-toolbar-button-inner-box home-icon">home</div>
+    <div id="btn-toiletNavi" class="goog-toolbar-button goog-toolbar-button-inner-box toilet-icon">toiletNavigate</div>-->
+
+  <!-- <div id="home">
+    <h1>It's Home!</h1>
+  </div> -->
+  <!-- <div id="toiletNavi">
+     <div id="map_canvas" style="width:500px; height:300px"></div>
+  </div> -->
+<!--
+  <div class="succeeded">
+    <h1>It works!</h1>
+    <p class="welcome">Welcome to Closure!</p>
+    <p>Next step:</p>
+    <ol>
+      <li>Read <a href="http://docs.closure-library.googlecode.com/git/index.html" target="_blank">Closure Library API Documentation</a></li>
+      <li>Develop the web app</li>
+      <li><code>googkit build</code></li>
+      <li>Share your web app with the world!</li>
+    </ol>
+  </div>
+  <div class="failed">
+    <h1>It doesn't work...</h1>
+    <p>Try to execute <code>googkit setup</code> first.</p>
+  </div>
+-->
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDXi4_YuOOTq0x34AtyGsR8JtndXxAF5DY&;sensor=false">
+  </script>
+  <script src="../closure/library/closure/goog/base.js"></script><!--@base_js@-->
+  <script src="../development/js_dev/deps.js"></script><!--@deps_js@-->
+  <script> goog.require('googkit_index'); </script><!--@require_main@-->
+</body>
 </html>

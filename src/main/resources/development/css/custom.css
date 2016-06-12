@@ -1,0 +1,85 @@
+/* Custom CSS here */
+
+body{
+width: 100%;
+font-family: 'Lato', sans-serif;
+}
+
+header{
+    background-color: #62488a;
+    width: 100%;
+
+}
+
+header{
+    background-color: #62488a;
+    width: 100%;
+    margin: 0;
+    padding: 40px 0 0 0;
+
+}
+
+h1{
+    font-family: 'Raleway', sans-serif;
+    font-size: 70px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    margin: 22px 0;
+}
+
+h2{
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    margin: 22px 0;
+}
+
+h3{
+    font-family: 'Raleway', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+}
+
+section{
+    width: 100%;
+    padding: 60px 0;
+}
+
+.center{
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.glyphicon {
+    font-size: 30px;
+    margin: 15px auto;
+    display: block;
+    width: 83px;
+}
+
+.call-to-action{
+  background-color: #13c4af;
+}
+
+img{
+    margin: 0 auto;
+    display: block;
+}
+
+footer{
+    padding: 20px 0px;
+}
+
+@media screen and (max-width: 768px){
+.conceal{
+    display: none;
+}
+h1{
+  font-size: 50px;
+}
+}
