@@ -17,7 +17,7 @@ public class HelloController {
         for (int i = 0; i < 5; i++) {
             ViewData data = new ViewData();
             StringBuffer buffer = new StringBuffer();
-            buffer.append("メッセージだお");
+            buffer.append("メッセージだお x");
             buffer.append(i);
             data.setNo(i + 1);
             data.setMessage(buffer.toString());
