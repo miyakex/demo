@@ -1,54 +1,53 @@
 package com.example;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.QueryOptions;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import com.datastax.driver.core.querybuilder.Select;
-import com.example.data.Person;
+import com.google.common.util.concurrent.ListenableFuture;
 
 @SpringBootApplication
 public class DemoApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DemoApplication.class); 
 	 
-	private static Cluster cluster; 
-	private static Session session;
 	 
 //	@Autowired
 //	@Qualifier("myTemplateBeanId")
-//	private CassandraOperations cassandraOperations;
 	 
 	public static void main(String[] args) {
 		try { 
+
+			Cluster cluster = Cluster.builder()
+			        .addContactPoints("127.0.0.1")
+			        // by default, statements will be considered non-idempotent
+			        .withQueryOptions(new QueryOptions().setDefaultIdempotence(false))
+			        // make your retry policy idempotence-aware
+			        //.withRetryPolicy(new IdempotenceAwareRetryPolicy(DefaultRetryPolicy.INSTANCE))
+			        .build();
 			 
-			cluster = Cluster.builder().addContactPoint("127.0.0.1").build(); 
+			ListenableFuture<Session> session = cluster.connectAsync("mykeyspace");
+			session.get().execute("INSERT INTO users (KEY, age) VALUES ('test', 1)");
 			 
-			session = cluster.connect("mykeyspace"); 
+			// by default, statements like this one will not be retried
+			//session.execute("INSERT INTO user (KEY, age) VALUES ('test', 1)");
+			
 			 
-			CassandraOperations cassandraOps = new CassandraTemplate(session); 
-			 
-			cassandraOps.insert(new Person("1234567890", "David", 40)); 
-			 
-			Select s = QueryBuilder.select().from("person"); 
-			s.where(QueryBuilder.eq("id", "1234567890")); 
+			// but this one will
+			//session.execute("");
 	
-			LOG.info(cassandraOps.queryForObject(s, Person.class).getId()); 
+			//LOG.info(cassandraOps.queryForObject(s, Person.class).getId()); 
+			//cassandraOperations.
 	
-			cassandraOps.truncate("person"); 
+			//cassandraOps.truncate("person");
 	
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace(); 
 		} 
 		

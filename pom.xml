@@ -55,6 +55,12 @@
     	    <artifactId>spring-data-cassandra</artifactId>
     	</dependency>
     	
+    	<dependency>
+    <groupId>com.datastax.cassandra</groupId>
+    <artifactId>cassandra-driver-core</artifactId>
+    <version>3.0.0-alpha5</version>
+</dependency>
+    	
 	</dependencies>
 	
 	<build>
