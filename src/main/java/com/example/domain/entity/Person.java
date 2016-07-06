@@ -1,12 +1,12 @@
-package com.example.data;
+package com.example.domain.entity;
 
-import org.springframework.data.cassandra.mapping.PrimaryKey;
-import org.springframework.data.cassandra.mapping.Table;
+import com.example.db.interfaces.DBEntity;
 
-@Table 
-public class Person { 
+import lombok.Data;
+
+@Data
+public class Person implements DBEntity { 
  
- @PrimaryKey 
  private String id; 
  
  private String name; 

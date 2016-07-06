@@ -50,10 +50,10 @@
     		<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		
- 	    <dependency>
+<!--  	    <dependency>
  	       <groupId>org.springframework.data</groupId>
     	    <artifactId>spring-data-cassandra</artifactId>
-    	</dependency>
+    	</dependency> -->
     	
     	<dependency>
     		<groupId>com.datastax.cassandra</groupId>
@@ -68,6 +68,19 @@
 			<scope>provided</scope>
 		</dependency>
     	
+    	<dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6</version>
+        </dependency>
+    	
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-lang3</artifactId>
+    		<version>3.0</version>
+		</dependency>
+
 	</dependencies>
 	
 	<build>
