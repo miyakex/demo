@@ -32,5 +32,4 @@
   <!-- OPTIONAL: If you are using Spring Data Cassandra Repositories, add 
     your base packages to scan here -->
   <cassandra:repositories base-package="org.spring.cassandra.example.repo" />
-
 </beans>
