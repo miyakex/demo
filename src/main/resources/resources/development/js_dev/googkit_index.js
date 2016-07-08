@@ -6,13 +6,13 @@
 
 goog.provide('googkit_index');/*@provide_main@*/
 
-// goog.require('foo.Example');
+goog.require('foo.Example');
 goog.require('foo.ExampleToolbar');
 
 
 // TODO: Write your code here
-// var example = new foo.Example();
-// example.doSomething();
+ var example = new foo.Example();
+ example.doSomething();
 // var exampleToolbar = new foo.ExampleToolbar();
 // exampleToolbar.decorate();
 
