@@ -4,3 +4,4 @@ goog.addDependency('../../../../development/js_dev/example-toolbar.js', ['foo.Ex
 goog.addDependency('../../../../development/js_dev/example.js', ['foo.Example'], ['goog.array', 'goog.crypt.base64', 'goog.dom', 'goog.dom.classes', 'goog.events', 'goog.net.EventType', 'goog.net.XhrIo', 'net.Ajax'], false);
 goog.addDependency('../../../../development/js_dev/googkit_index.js', ['googkit_index'], ['foo.Example', 'foo.ExampleToolbar'], false);
 goog.addDependency('../../../../development/js_dev/net/ajax.js', ['net.Ajax'], ['goog.net.XhrIo'], false);
+goog.addDependency('../../../../development/js_dev/toilet-map-app.js', ['toilet-map-app'], [], false);

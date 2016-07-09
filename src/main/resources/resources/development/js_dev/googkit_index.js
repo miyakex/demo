@@ -17,11 +17,192 @@ goog.require('foo.ExampleToolbar');
 // exampleToolbar.decorate();
 
 function initialize() {
-  var latlng = new google.maps.LatLng(35.709984,139.810703);
-  var opts = {
-    zoom: 15,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  var map = new google.maps.Map(document.getElementById("map_canvas"), opts);
+//  var latlng = new google.maps.LatLng(35.709984,139.810703);
+//  var opts = {
+//    zoom: 15,
+//    center: latlng,
+//    mapTypeId: google.maps.MapTypeId.ROADMAP
+//  };
+//  var map = new google.maps.Map(document.getElementById("map_canvas"), opts);
+	
+    var myOptions =
+    {
+    disableDefaultUI: false,//◆API のデフォルトの UI 設定をオフ(無効)にしたい場合は”true”
+  
+     
+    //◆ナビゲーションコントロール
+    navigationControl: true,
+        navigationControlOptions:
+        {
+     
+        //◆通常 ズームコントロール
+        //style: google.maps.NavigationControlStyle.DEFAULT,
+        style: google.maps.NavigationControlStyle.SMALL,
+        position: google.maps.ControlPosition.LEFT_TOP
+     
+        //◆Android ズームコントロール
+        //style:google.maps.NavigationControlStyle.ANDROID,
+        //position: google.maps.ControlPosition.BOTTOM_CENTER
+        },
+     
+        //◆マップタイプコントロール
+        mapTypeControl: true,
+        mapTypeControlOptions:
+        {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        //style: google.maps.MapTypeControlStyle.DEFAULT,
+        //style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+        },
+     
+        //◆スケールコントロール
+        scaleControl: true,
+        scaleControlOptions:
+        {
+        //◆指定無しの場合左下になる
+        //position: google.maps.ControlPosition.RIGHT_TOP
+        //position: google.maps.ControlPosition.TOP_CENTER
+        //position: google.maps.ControlPosition.BOTTOM_CENTER
+        },
+                center: center,
+        zoom: zoom,
+        mapTypeId: mapTypeId
+    };
+ 
+    showDetecting();
+    divblock('detecting');//◆detecting表示
+ 
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+ 
+    google.maps.event.addListener(map,"projection_changed",function()
+    {
+    startLocationTracking();
+ 
+    });
+	
 };
+
+var ini = 0;
+function startLocationTracking()
+{
+    map.setCenter(initialLocation);
+    divblock('inside');//◆watchPosition gif表示
+    divblock('mylocation');//◆mylocation表示
+ 
+       
+    //◆座標収得
+    if(navigator.geolocation)
+    {
+    browserSupportFlag = true;
+        watchId = navigator.geolocation.watchPosition(function(position)
+        {
+ 
+        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+    //  map.setCenter(initialLocation);
+        showCurrentLocation(position);
+ 
+            if ( !ini ) 
+            {
+ 
+            //◆現在地マーカー
+            var image = new google.maps.MarkerImage(
+            'http://waox.main.jp/png/source-bluedot.png',
+            null, // size
+            null, // origin
+            new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
+            new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+            );
+ 
+                ini = new google.maps.Marker(
+                {
+                flat: true,//・・・・・・アイコンにtrueで影を付けない
+                icon: image,
+                map: map,
+                optimized: false,
+                position:initialLocation,  
+                title: '現在地',  
+                visible: true
+                });
+ 
+                if (ini!= null)
+                {
+                divnone('detecting');//◆detecting非表示
+                }
+ 
+    　　　　    }
+            else
+            {
+            ini.setPosition( initialLocation );
+            }
+            map.setCenter( initialLocation );
+ 
+ 
+        },
+        function()
+        {
+        handleNoGeolocation(browserSupportFlag);
+        });
+    }
+    else
+    {
+   　 
+    // Browser doesn't support Geolocation
+    browserSupportFlag = false;
+    handleNoGeolocation(browserSupportFlag);
+    }
+  
+    google.maps.event.addListener(map, 'dragend', function() //◆地図を移動（ドラッグ）するとclearWatch
+    {
+        if (watchId > 0)
+        {
+        navigator.geolocation.clearWatch(watchId);
+        divnone('inside');//◆watchPosition gif非表示
+        divnone('mylocation');//◆mylocation非表示
+        }
+    });
+};
+
+//◆現在地座標表示
+function showCurrentLocation(position)
+{
+    document.getElementById("mylocation").innerHTML = "Lat:" + position.coords.latitude.toFixed(7) + " , Lng:" + position.coords.longitude.toFixed(7) ;
+}
+  
+function showDetecting()
+{
+    document.getElementById("detecting").innerHTML = "GPS測定中。お待ち下さい。" ;
+}
+ 
+function handleNoGeolocation(errorFlag)
+{
+    if (errorFlag == true)
+    {
+    initialLocation = tokyo;
+    contentString = "位置を特定できません。サポートされていないブラウザです。東京都庁を表示します。";
+    }
+    else
+    {
+    initialLocation = tokyo;
+    contentString = "位置を特定できません。サポートされていないブラウザです。東京都庁を表示します。";
+    }
+    map.setCenter(initialLocation);
+    geowindow  .setContent(contentString);
+    geowindow  .setPosition(initialLocation);
+    geowindow  .open(map);
+};
+
+//div表示の切換え
+function divblock(id)
+{
+    var ele = document.getElementById(id);
+    ele.style.display = 'block';
+}  
+  
+//div非表示の切換え
+function divnone(id)
+{
+    var ele = document.getElementById(id);
+    ele.style.display = 'none';  
+}
+ 
+      google.maps.event.addDomListener(window, 'load', initialize);
