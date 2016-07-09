@@ -1,3 +1,28 @@
+    header.jumbotron {
+      background-size: cover;
+      color: #fff;
+    }
+    
+    header .container {
+      margin-top: 8%;
+    }
+    
+    header .midashi-btn {
+      border: 1px solid #fff;
+      color: #fff;
+      border-radius: 0;
+    }
+    
+    header .midashi-btn:hover {
+      color: #0089ff;
+      border-color: #0089ff;
+    }
+    
+    .navbar-form {
+      padding-right: 30px;
+    }
+
+
 	@-moz-keyframes pulsate {
 		from {
 			-moz-transform: scale(0.25);

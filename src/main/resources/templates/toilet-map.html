@@ -2,12 +2,12 @@
 <head>
 	<title>Toilet Map</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta>
-
+	
 	<!-- <style></style> -->
 	<link rel="stylesheet" type="text/css" href="/css/toilet-map.css"></link>
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,500,600,700,800,900' rel='stylesheet' type='text/css'></link>
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"></link>
-  <link rel="stylesheet" type="text/css" href="/css/custom.css"></link>
+  	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,500,600,700,800,900' rel='stylesheet' type='text/css'></link>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"></link>
+  	<link rel="stylesheet" type="text/css" href="/css/custom.css"></link>
 
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDXi4_YuOOTq0x34AtyGsR8JtndXxAF5DY&;sensor=false"></script>
 
@@ -17,16 +17,28 @@
   	<script> goog.require('toilet-map-app'); </script><!--@require_main@-->
 	
 </head>
-<body onload="plebeosaur.map()">
-	<header>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-11">
-					<h2>Toilet Concierge</h2>
+<!-- <body onload="plebeosaur.map()"> -->
+<body onload="initialize()">
+	<nav class="navbar navbar-inverse navbar-fixed-top navbar-custom"><!--  -->
+		<div class="navbar-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-sm-2 col-xs-2">
+	            		<span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+	          		</div>
+					<div class="col-lg-11 col-sm-8 col-xs-8">
+						<h2>Toilet Concierge</h2>
+					</div>
+					<div class="col-lg-1 col-sm-2 col-xs-2">
+						<button id="seach_btn" type="button" class="btn btn-info btn-sm" aria-label="Left Align">
+	  						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</header>
+	</nav>
+	<div style="display: block; height: 7%"></div>
 	<div id="map_canvas"><!-- map goes here --></div>
 </body>
 </html>
