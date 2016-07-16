@@ -10,8 +10,7 @@
   	<link rel="stylesheet" type="text/css" href="/css/custom.css"></link>
 
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDXi4_YuOOTq0x34AtyGsR8JtndXxAF5DY&;sensor=false"></script>
-
-	<!-- <script type="text/javascript"></script> -->
+	
 	<script src="closure/library/closure/goog/base.js"></script><!--@base_js@-->
   	<script src="development/js_dev/deps.js"></script><!--@deps_js@-->
   	<script> goog.require('toilet-map-app'); </script><!--@require_main@-->
@@ -39,6 +38,9 @@
 		</div>
 	</nav>
 	<div style="display: block; height: 7%"></div>
-	<div id="map_canvas"><!-- map goes here --></div>
+	<div class="map-canvas-wrapper">
+		<div id="map_canvas"><!-- map goes here --></div>
+	</div>
+	
 </body>
 </html>

@@ -2,6 +2,7 @@ goog.provide('map.MapManager');
 
 goog.require('goog.array');
 goog.require('util.UrlUtil');
+goog.require('util.MarkerUtil');
 
 /**
  * @param opt_here = {chase:{boolean}}
@@ -12,13 +13,24 @@ map.MapManager = function(opt_here) {
 	this.opt_here_ = opt_here;
 	this.mapObj_ = null;
 	this.markers_ = [];
+	this.directionsService_ = new google.maps.DirectionsService();
+	this.directionsRenderer_ = new google.maps.DirectionsRenderer({suppressMarkers : true});
 };
 
 /******************************************************** 
  * PUBLIC 
  ********************************************************/
 map.MapManager.prototype.initialize = function(mapCanvas, map_options) {
+	if (this.loaded_) {
+		try { throw new Error(); } catch (e) {
+			console.log('Error: MapManager already initialized.¥n'
+					+ 'CallStack:¥n'
+					+ e.stack.split('¥n').slice(4).join('¥n'));
+		}
+		return;
+	}
 	this.mapObj_ = new google.maps.Map(mapCanvas, map_options);
+	this.directionsRenderer_.setMap(this.mapObj_);
 	if (this.opt_here_) {
 		this.displayHere_();
 	}
@@ -47,11 +59,48 @@ map.MapManager.prototype.clearMarkers = function() {
 	this.markers_ = [];
 };
 
-map.MapManager.prototype.centerHere = function() {
+/**
+ * @param {google.maps.LatLng|Object{lat=number, lng=number}} start
+ * @param {MarkerModel[]|LatLngModel[]} goals
+ */
+map.MapManager.prototype.showRout = function(start, goals) {
+	start = (start instanceof google.maps.LatLng)?start : new google.maps.LatLng(start.lat, start.lng);
+	var wayPoints = goog.array.map(goals, function(goal) {
+		return {location: new google.maps.LatLng(goal.lat, goal.lng)};
+	}, this);
+	var end = goog.array.peek(wayPoints).location;
+	goog.array.removeAt(wayPoints, wayPoints.length - 1);
+	var request = { 
+            origin: start, 
+            destination: end, 
+            travelMode: google.maps.DirectionsTravelMode.WALKING, 
+            waypoints: wayPoints 
+        };
+	var that = this;
+	this.directionsService_.route(request, function(result, status) {
+	      if (status, google.maps.DirectionsStatus.OK) {
+	    	  that.directionsRenderer_.setDirections(result);
+	    	  goog.array.forEach(goals, function(goal) {
+	    		  that.pushMarker(util.MarkerUtil.toInstance(goal));
+	    	  }, that);
+//	    	  if (opt_wayPoints) {
+//	    		  goog.array.forEach(opt_wayPoints, function(point) {
+//	    			  that.pushMarker(util.MarkerUtil.newInstance(point, 'unko'));
+//	    		  }, that);
+//	    	  }
+//	    	  that.pushMarker(util.MarkerUtil.newInstance(end, 'moreta'));
+	      }
+	    });
+};
+
+/**
+ * @param opt_callback = function(myLatLng)
+ */
+map.MapManager.prototype.centerHere = function(opt_callback) {
 	var that = this;
 	if (!this.loaded_) {
 		this.loadedListener_.push(function() {
-			that.centerHere();
+			that.centerHere(opt_callback);
 		});
 		return;
 	}
@@ -60,6 +109,9 @@ map.MapManager.prototype.centerHere = function() {
 			function(position) {
 				var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 				that.mapObj_.setCenter(myLatLng);
+				if (opt_callback) {
+					opt_callback(myLatLng);
+				}
 			},
 			//error
 			map.MapManager.handleError_, 
@@ -109,16 +161,7 @@ map.MapManager.prototype.displayHere_ = function() {
 				first = false;
 			}
 		};
-	var handleError = function(error) {
-			var errorMessage = [ 
-				'We are not quite sure what happened.',
-				'Sorry. Permission to find your location has been denied.',
-				'Sorry. Your position could not be determined.',
-				'Sorry. Timed out.'
-			];
-			alert(errorMessage[error.code]);
-		};
-		// cache the userAgent
+	// cache the userAgent
 	var useragent = navigator.userAgent;
 	// allow iPhone or Android to track movement
 	if (useragent.indexOf('iPhone') !== -1 || useragent.indexOf('Android') !== -1) {

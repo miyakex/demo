@@ -32,11 +32,19 @@ function initialize() {
 	var seachBtn = document.getElementById('seach_btn');
 	goog.events.listen(seachBtn, goog.events.EventType.CLICK, function(e) {
 		mapMgr.clearMarkers();
-		var param = {};
-		new net.Ajax().post(util.UrlUtil.httpRoot() + '/toilet-map/load', param).ok(function(res) {
-			goog.array.forEach(res, function(position) {
-				var marker = new google.maps.Marker({position: new google.maps.LatLng(position.lat, position.lng)});
-				mapMgr.pushMarker(marker);
+		mapMgr.centerHere(function(myLatLng) {
+			var param = {
+					lat: myLatLng.lat(),
+					lng: myLatLng.lng()
+			};
+			new net.Ajax().post(util.UrlUtil.httpRoot() + '/toilet-map/load', param).ok(function(res) {
+//				var positions = goog.array.map(res, function(position) {
+//					return new google.maps.LatLng(position.lat, position.lng);
+//				}, this);
+				var start = myLatLng;
+//				var end = positions[positions.length - 1];
+//				goog.array.remove(positions, end);
+				mapMgr.showRout(start, res);
 			});
 		});
 	});
