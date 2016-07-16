@@ -1,5 +1,7 @@
 goog.provide('net.Ajax');
 goog.require('goog.net.XhrIo');
+goog.require('goog.events');
+goog.require('goog.net.EventType');
 
 net.Ajax = function() {
 	this.xhr_ = new goog.net.XhrIo();
