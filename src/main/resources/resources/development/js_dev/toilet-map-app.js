@@ -5,6 +5,8 @@ goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('net.Ajax');
 goog.require('util.UrlUtil');
+goog.require('goog.ui.Popup');
+goog.require('goog.dom');
 
 var opt_here = {
 		chase : false
@@ -15,6 +17,7 @@ var marker1 = new google.maps.Marker({position: new google.maps.LatLng( 35.71415
 mapMgr.pushMarker(marker1);
 
 function initialize() {
+	
 	// get the page's canvas container
 	var	mapCanvas = document.getElementById('map_canvas');
 	// define the Google Maps options
@@ -25,8 +28,6 @@ function initialize() {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	mapMgr.initialize(mapCanvas, map_options);
-	mapCanvas.style.width = '100%';
-	mapCanvas.style.height = '93%';//TODO まだ無理やりな方法
 	
 	//bindHandler
 	var seachBtn = document.getElementById('seach_btn');

@@ -4,6 +4,24 @@ body{
 width: 100%;
 font-family: 'Lato', sans-serif;
 }
+.pusher {
+	top: 0px;
+	position: fixed;
+	max-hight: 50px;
+}
+.pusher > .push-content {
+	position: relative;
+}
+.push-content > div {
+	position: absolute;
+	top: 0 ;
+	left: 0 ;
+	width: 100% ;
+	height: 100%;
+}
+.main-page {
+	position: relative;
+}
 .navbar-custom{
     background-color: #62488a;
     border-color: #62488a;
@@ -14,6 +32,27 @@ header{
     width: 100%;
 
 }
+
+tag {
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+tag {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #fff;
+  background-color: #333;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+}
+tag tag {
+  padding: 0;
+  font-size: 100%;
+  font-weight: bold;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 
 header{
     background-color: #62488a;

@@ -5,6 +5,6 @@ goog.addDependency('../../../../development/js_dev/example.js', ['foo.Example'],
 goog.addDependency('../../../../development/js_dev/googkit_index.js', ['googkit_index'], ['foo.Example', 'foo.ExampleToolbar'], false);
 goog.addDependency('../../../../development/js_dev/map/map-manager.js', ['map.MapManager'], ['goog.array', 'util.MarkerUtil', 'util.UrlUtil'], false);
 goog.addDependency('../../../../development/js_dev/net/ajax.js', ['net.Ajax'], ['goog.events', 'goog.net.EventType', 'goog.net.XhrIo'], false);
-goog.addDependency('../../../../development/js_dev/toilet-map-app.js', ['toilet-map-app'], ['goog.events', 'goog.events.EventType', 'map.MapManager', 'net.Ajax', 'util.UrlUtil'], false);
+goog.addDependency('../../../../development/js_dev/toilet-map-app.js', ['toilet-map-app'], ['goog.dom', 'goog.events', 'goog.events.EventType', 'goog.ui.Popup', 'map.MapManager', 'net.Ajax', 'util.UrlUtil'], false);
 goog.addDependency('../../../../development/js_dev/util/marker-util.js', ['util.MarkerUtil'], [], false);
 goog.addDependency('../../../../development/js_dev/util/url-util.js', ['util.UrlUtil'], [], false);
